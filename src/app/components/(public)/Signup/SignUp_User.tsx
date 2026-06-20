@@ -6,7 +6,8 @@ function SignUp_User({setOpt}:SignUpprop) {
   return (
     <div>
      <button onClick={()=>{setOpt(null)}}>back</button>
-      <SignUp/>
+      <SignUp
+      fallbackRedirectUrl="/onboarding/user"/>
     </div>
   )
 }

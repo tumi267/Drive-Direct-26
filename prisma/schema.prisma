@@ -14,19 +14,34 @@ lastName        String
 role AdminRole @default(SALES)
 }
 model Dealer {
-  id              String @id @default(uuid())
-  userId          String @unique
-  user            User @relation(fields:[userId], references:[id])
-  companyName     String
-  tradingName     String?
-  email           String? @unique
-  phone           String?
-  logo            String?
-  listings        Vehicle[]
-  inquiries       Inquiry[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id String @id @default(uuid())
+  companyName String
+  tradingName String?
+  email String?
+  phone String?
+  listings Vehicle[]
+  users DealerUser[]
+  verificationStatus DealerVerificationStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+model DealerUser {
+  id String @id @default(uuid())
+
+  clerkId String @unique
+
+  firstName String
+  lastName String
+  status DealerUserStatus @default(ACTIVE)
+  role DealerRole
+
+  dealerId String
+  dealer Dealer @relation(fields:[dealerId], references:[id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model User{
 id String @id @default(uuid())
 firstName  String
@@ -35,7 +50,6 @@ clerkid String @unique
 favorites   Favorite[]
 inquiries   Inquiry[]
 role    UserRole @default(USER)
-dealer Dealer?
 createdAt  DateTime @default(now())
 updatedAt  DateTime @updatedAt
 }
@@ -55,7 +69,7 @@ model Vehicle {
   bodyType        BodyType
   colour          String?
   description     String?         @db.Text
-  status          ListingStatus   @default(ACTIVE)
+  status          ListingStatus   @default(DRAFT)
   images          VehicleImage[]
   favorites       Favorite[]
   inquiries       Inquiry[]
@@ -83,16 +97,16 @@ model Favorite {
 }
 
 model Inquiry {
-  id          String      @id @default(uuid())
+  id          String @id @default(uuid())
   userId      String
   dealerId    String
   vehicleId   String
-  message     String      @db.Text
-  user        User        @relation(fields: [userId], references: [id])
-  dealer      Dealer      @relation(fields: [dealerId], references: [id])
-  vehicle     Vehicle     @relation(fields: [vehicleId], references: [id])
-  createdAt   DateTime    @default(now())
+  message     String @db.Text
+  user        User @relation(fields: [userId], references: [id])
+  vehicle     Vehicle @relation(fields: [vehicleId], references: [id])
+  createdAt   DateTime @default(now())
 }
+
 enum AdminRole {
   ADMIN
   TRAINER
@@ -103,7 +117,9 @@ enum AdminRole {
 
 enum ListingStatus {
   DRAFT
-  ACTIVE
+  PENDING
+  APPROVED
+  REJECTED
   SOLD
   REMOVED
 }
@@ -134,4 +150,19 @@ enum UserRole {
   USER
   DEALER
   ADMIN
+}
+enum DealerRole {
+  OWNER
+  MANAGER
+  SALES
+}
+enum DealerVerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+enum DealerUserStatus {
+  ACTIVE
+  INVITED
+  SUSPENDED
 }
