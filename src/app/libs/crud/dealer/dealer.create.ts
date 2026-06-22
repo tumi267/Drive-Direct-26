@@ -50,3 +50,16 @@ interface CreateDealerProps {
       },
     })
   }
+
+  export async function getDealerUserByClerkId(
+    clerkId: string
+  ) {
+    return await prisma.dealerUser.findUnique({
+      where: {
+        clerkId,
+      },
+      include: {
+        dealer: true,
+      },
+    })
+  }
