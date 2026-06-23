@@ -2,6 +2,7 @@
 
 import useDealerVehicles from '@/app/hooks/useDealerVehicles'
 import VehicleCard from '../../gobal/VehicleCard/VehicleCard'
+import Link from 'next/link'
 
 
 function DealerListings() {
@@ -30,10 +31,12 @@ function DealerListings() {
   return (
     <div className="space-y-4">
       {vehicles.map((vehicle) => (
+        <Link href={`/dealer/listings/${vehicle.id}`}>
         <VehicleCard
           key={vehicle.id}
           vehicle={vehicle}
         />
+        </Link>
       ))}
     </div>
   )
