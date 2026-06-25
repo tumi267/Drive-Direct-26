@@ -1,14 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { uploadImageToCloudinary } from '@/app/libs/media/cloudinary'
+import { GetvehilceImage } from '../services/dealer/GetvehilceImage'
 
 export interface UploadedImage {
   url: string
   publicId: string
 }
 
-function useImage() {
+function useImage(vID:string) {
   const [images, setImages] = useState<File[]>([])
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([])
   const [savedImages,setSavedimages]=useState<UploadedImage[]>([])
@@ -18,7 +19,16 @@ function useImage() {
     if (!files) return
     setImages(Array.from(files))
   }
-
+  // get images on load
+  useEffect(()=>{
+    if(images.length>0)return
+    const getimages=async()=>{
+      const vImages=await GetvehilceImage(vID)
+      setImages(vImages)
+    }
+    getimages()
+  },[images])
+// upload images
   const uploadImages = async (vID:string) => {
     try {
       setLoading(true)
@@ -61,13 +71,12 @@ function useImage() {
       setLoading(false)
     }
   }
-
+// remove image
   const removeImage = (index: number) => {
     setImages((prev) =>
       prev.filter((_, i) => i !== index)
     )
   }
-
 
   return {
     images,

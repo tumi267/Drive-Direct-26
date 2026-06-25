@@ -1,5 +1,5 @@
 'use client'
-
+// need to fix type 
 import Image from 'next/image'
 import useImageOrder from '@/app/hooks/useImageOrder'
 
@@ -12,6 +12,7 @@ images: File[]
 
 function ImageSorter({images,setImages,}: Props) {
   const {handleDragStart,handleDrop,} = useImageOrder(images,setImages)
+  
   return (
     <div className="grid grid-cols-4 gap-1">
       {images.map((image, index) => (
@@ -29,9 +30,9 @@ function ImageSorter({images,setImages,}: Props) {
           }
         >
           <Image
-            src={URL.createObjectURL(
-              image
-            )}
+            src={image instanceof File
+              ? URL.createObjectURL(image)
+              : image.url}
             alt={`Image ${index + 1}`}
             width={200}
             height={200}

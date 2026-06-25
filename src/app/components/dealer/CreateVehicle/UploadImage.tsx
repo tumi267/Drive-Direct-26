@@ -8,7 +8,7 @@ interface props{
     vId:string
 }
 function UploadImage({vId}:props) {
-  const {images,setImages,loading,error,handleImageChange,uploadImages,savedImages,setSavedimages} = useImage()
+  const {images,setImages,loading,error,handleImageChange,uploadImages,savedImages,setSavedimages} = useImage(vId)
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
