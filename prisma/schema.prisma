@@ -82,7 +82,9 @@ model VehicleImage {
   vehicleId   String
   vehicle     Vehicle     @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
   url         String
+  publicId    String
   position    Int         @default(0)
+  imageType  VehicleImageType?
   createdAt   DateTime    @default(now())
 }
 
@@ -165,4 +167,13 @@ enum DealerUserStatus {
   ACTIVE
   INVITED
   SUSPENDED
+}
+enum VehicleImageType {
+  EXTERIOR_FRONT
+  EXTERIOR_REAR
+  INTERIOR
+  TRUNK
+  ENGINE
+  PROMO
+  OTHER
 }

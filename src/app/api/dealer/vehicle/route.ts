@@ -22,9 +22,9 @@ export async function GET() {
         { status: 404 }
       )
     }
-    console.log(dealer)
+   
     const vehicles=await getVehiclesByDealer(dealer.dealer.id)
-    console.log(vehicles)
+   
     return NextResponse.json(vehicles)
   } catch (error) {
     console.error(error)

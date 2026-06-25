@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { uploadImageToCloudinary } from '@/app/libs/media/cloudinary'
 import { auth } from '@clerk/nextjs/server'
 import { getDealerUserByClerkId } from '@/app/libs/crud/dealer/dealer.create'
+import { createVehicleImages } from '@/app/libs/crud/vehicle/image.create'
 export async function POST(req: Request) {
   try {
     const { userId } = await auth()
@@ -23,6 +24,7 @@ export async function POST(req: Request) {
     const formData = await req.formData()
     const file = formData.get('file') as Blob | null
     const vID = formData.get('vID') as string | null
+    const position = Number(formData.get('position'))
       if (!file) {
       return NextResponse.json(
       { message: 'No file provided' },
@@ -36,7 +38,8 @@ export async function POST(req: Request) {
       )
     }
     const result = await uploadImageToCloudinary(file,dealerId,vID)
-
+    
+    createVehicleImages([{vehicleId: vID,url: result.secure_url,publicId: result.public_id,position}])
     return NextResponse.json({
       url: result.secure_url,
       publicId: result.public_id,

@@ -2,17 +2,19 @@
 
 import React from 'react'
 import useImage from '@/app/hooks/useImage'
+import Image from 'next/image'
+import ImageSorter from './ImageSorter'
 interface props{
     vId:string
 }
 function UploadImage({vId}:props) {
-  const {images,uploadedImages,loading,error,handleImageChange,uploadImages,} = useImage()
+  const {images,setImages,loading,error,handleImageChange,uploadImages,savedImages,setSavedimages} = useImage()
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault()
     const results = await uploadImages(vId)
-    console.log(results)
+    setSavedimages(results)
   }
 
   return (
@@ -39,14 +41,16 @@ function UploadImage({vId}:props) {
       </form>
 
       {error && <p>{error}</p>}
-
-      <p>
-        Selected: {images.length}
-      </p>
-
-      <p>
-        Uploaded: {uploadedImages.length}
-      </p>
+      <ImageSorter
+      images={images}
+      setImages={setImages}
+      />
+ 
+     {savedImages.length>0&& <div >
+        Uploaded:<div className='grid grid-cols-4 gap-1'> 
+        {savedImages.map((e,i)=>{return <Image key={e.publicId} src={e.url} alt={`Image ${i + 1}`} width={200} height={200}/>})}
+        </div>
+      </div>}
     </div>
   )
 }

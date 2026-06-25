@@ -39,6 +39,7 @@ export type BodyType =
     id: string
     vehicleId: string
     url: string
+    publicId: string
     position: number
     createdAt: string
   }

@@ -11,6 +11,7 @@ export interface UploadedImage {
 function useImage() {
   const [images, setImages] = useState<File[]>([])
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([])
+  const [savedImages,setSavedimages]=useState<UploadedImage[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const handleImageChange = (files: FileList | null) => {
@@ -23,11 +24,12 @@ function useImage() {
       setLoading(true)
       setError(null)
       const uploads = await Promise.all(
-        images.map(async (file) => {
+        images.map(async (file,i) => {
           const formData = new FormData()
   
           formData.append('file', file)
           formData.append('vID', vID)
+          formData.append('position',i.toString())
           const response = await fetch(
             '/api/image/upload',
             {
@@ -35,14 +37,14 @@ function useImage() {
               body: formData,
             }
           )
-          const data =
-            await response.json()
+          const data = await response.json()
           if (!response.ok) {
             throw new Error(
               data.message ??
                 'Upload failed'
             )
           }
+          setImages([])
           return data
         })
       )
@@ -66,14 +68,18 @@ function useImage() {
     )
   }
 
+
   return {
     images,
+    setImages,
     uploadedImages,
     loading,
     error,
     handleImageChange,
     uploadImages,
     removeImage,
+    savedImages,
+    setSavedimages,
   }
 }
 
