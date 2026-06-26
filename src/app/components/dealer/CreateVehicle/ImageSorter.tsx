@@ -30,9 +30,9 @@ function ImageSorter({images,setImages,}: Props) {
           }
         >
           <Image
-            src={image instanceof File
-              ? URL.createObjectURL(image)
-              : image.url}
+            src={
+               URL.createObjectURL(image)
+              }
             alt={`Image ${index + 1}`}
             width={200}
             height={200}

@@ -1,13 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { uploadImageToCloudinary } from '@/app/libs/media/cloudinary'
 import { GetvehilceImage } from '../services/dealer/GetvehilceImage'
-
-export interface UploadedImage {
-  url: string
-  publicId: string
-}
+import { UploadedImage } from '../types/vehicle'
 
 function useImage(vID:string) {
   const [images, setImages] = useState<File[]>([])
@@ -23,8 +18,9 @@ function useImage(vID:string) {
   useEffect(()=>{
     if(images.length>0)return
     const getimages=async()=>{
+      
       const vImages=await GetvehilceImage(vID)
-      setImages(vImages)
+      setSavedimages(vImages)
     }
     getimages()
   },[images])

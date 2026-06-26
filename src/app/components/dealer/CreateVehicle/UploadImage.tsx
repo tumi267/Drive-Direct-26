@@ -4,6 +4,7 @@ import React from 'react'
 import useImage from '@/app/hooks/useImage'
 import Image from 'next/image'
 import ImageSorter from './ImageSorter'
+import ExistingImageManager from './ExistingImageManager'
 interface props{
     vId:string
 }
@@ -30,26 +31,18 @@ function UploadImage({vId}:props) {
           }
         />
 
-        <button
-          type="submit"
-          disabled={loading}
-        >
-          {loading
-            ? 'Uploading...'
-            : 'Upload'}
-        </button>
+        <button type="submit" disabled={loading} > {loading? 'Uploading...': 'Upload'} </button>
       </form>
-
       {error && <p>{error}</p>}
       <ImageSorter
       images={images}
       setImages={setImages}
       />
- 
      {savedImages.length>0&& <div >
-        Uploaded:<div className='grid grid-cols-4 gap-1'> 
-        {savedImages.map((e,i)=>{return <Image key={e.publicId} src={e.url} alt={`Image ${i + 1}`} width={200} height={200}/>})}
-        </div>
+        Uploaded:<ExistingImageManager
+        savedImages={savedImages}
+        setSavedimages={setSavedimages}
+        />
       </div>}
     </div>
   )

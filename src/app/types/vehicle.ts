@@ -62,3 +62,7 @@ export type BodyType =
     createdAt: string
     updatedAt: string
   }
+  export interface UploadedImage {
+    url: string
+    publicId: string
+  }
