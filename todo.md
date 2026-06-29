@@ -1,8 +1,5 @@
 1. Dealer Dashboard Shell
-2. Vehicle Create Page
-3. Vehicle Create API
-4. Vehicle CRUD
-5. Dealer Listings Page
+2. edit vehicle
 
 [BUG]
 Investigate onboarding hydration mismatch
@@ -18,3 +15,11 @@ Likely causes:
 - Parent component rendering <DealerForm /> inside <p>
 - Loading state mismatch between SSR and client hydration
 - Clerk loading state changing initial markup
+
+[image]
+1. Better drag-and-drop
+2. Replace image
+3. Cover image
+4. Progress bars
+5. Image compression
+6. Fancy animations

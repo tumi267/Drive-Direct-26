@@ -16,13 +16,13 @@ function useImage(vID:string) {
   }
   // get images on load
   useEffect(()=>{
+    if (!vID) return
     const getImages = async () => {
-      const vImages = await GetvehilceImage(vID)
-      setSavedimages(vImages)
+    const vImages = await GetvehilceImage(vID)  
+    setSavedimages(vImages)
     }
-  
     getImages()
-  },[images])
+  },[vID])
 // upload images
   const uploadImages = async (vID:string) => {
     try {

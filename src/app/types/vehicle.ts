@@ -1,23 +1,23 @@
 
 
-export interface CreateVehicleFormData {
-    make: string
-    model: string
-    variant: string
+// export interface CreateVehicleFormData {
+//     make: string
+//     model: string
+//     variant: string
   
-    year: number
-    mileage: number
-    price: number
+//     year: number
+//     mileage: number
+//     price: number
   
-    fuelType: FuelType
-    transmission: Transmission
-    bodyType: BodyType
+//     fuelType: FuelType
+//     transmission: Transmission
+//     bodyType: BodyType
   
-    colour: string
-    description: string
-  }
+//     colour: string
+//     description: string
+//   }
 
-  export type FuelType =
+export type FuelType =
   | 'PETROL'
   | 'DIESEL'
   | 'HYBRID'
@@ -61,6 +61,7 @@ export type BodyType =
     images?: VehicleImage[]
     createdAt: string
     updatedAt: string
+    status?: string
   }
   export interface UploadedImage {
     url: string

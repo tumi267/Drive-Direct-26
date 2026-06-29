@@ -8,5 +8,6 @@ export default function Layout({
     return <>
     <Nav/>
     {children}
+    {/* Footer */}
     </>
   }

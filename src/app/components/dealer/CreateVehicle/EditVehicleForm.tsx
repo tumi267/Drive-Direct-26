@@ -1,20 +1,24 @@
 'use client'
 
-import React from 'react'
 import useVehicleForm from '@/app/hooks/useVehicleForm'
-import { createVehicle } from '@/app/services/dealer/CreateVehicle'
-import { useRouter } from 'next/navigation'
-
-function CreateVehicleForm() {
-  const {formData,loading,setLoading,setError,error,updateField,} = useVehicleForm()
-  const router = useRouter()
+import { editVehicle } from '@/app/services/dealer/EditVehicle'
+import { Vehicle } from '@/app/types/vehicle'
+import React, { useEffect } from 'react'
+interface props{
+  vehicle: Vehicle
+}
+function EditVehicleForm({vehicle}: props) {
+  const {formData,loading,setLoading,setError,error,updateField,loadVehicle} = useVehicleForm()
+  useEffect(() => {
+    loadVehicle(vehicle)
+  }, [vehicle])
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       setLoading(true)
       setError(null)
-      await createVehicle(formData)
-      router.push('/dealer/listings')
+      
+      await editVehicle(formData)
     } catch (err) {
       setError(
         err instanceof Error
@@ -210,11 +214,11 @@ function CreateVehicleForm() {
         className="border p-2 rounded"
       >
         {loading
-          ? 'Creating Vehicle...'
-          : 'Create Vehicle'}
+          ? 'Updating Vehicle...'
+          : 'Update Vehicle'}
       </button>
     </form>
   )
 }
 
-export default CreateVehicleForm
+export default EditVehicleForm

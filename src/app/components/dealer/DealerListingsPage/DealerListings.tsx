@@ -31,9 +31,8 @@ function DealerListings() {
   return (
     <div className="space-y-4">
       {vehicles.map((vehicle) => (
-        <Link href={`/dealer/listings/${vehicle.id}`}>
+        <Link key={vehicle.id} href={`/dealer/listings/${vehicle.id}`}>
         <VehicleCard
-          key={vehicle.id}
           vehicle={vehicle}
         />
         </Link>

@@ -1,9 +1,9 @@
 import { Vehicle } from "@/app/types/vehicle"
 
-export async function createVehicle(
+export async function editVehicle(
   data: Vehicle
 ) {
-  const response = await fetch('/api/vehicle/create', {
+  const response = await fetch('/api/vehicle/edit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ export async function createVehicle(
     console.log(result.message)
     throw new Error(
       result.message ??
-        'Failed to create vehicle'
+        'Failed to edit vehicle'
     )
   }
 

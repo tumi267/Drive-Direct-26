@@ -1,22 +1,27 @@
 'use client'
 
-import { useState } from 'react'
-import {BodyType,CreateVehicleFormData,FuelType,Transmission,} from '../types/vehicle'
+import { useEffect, useState } from 'react'
+import {Vehicle,} from '../types/vehicle'
 
 function useVehicleForm() {
   const [formData, setFormData] =
-    useState<CreateVehicleFormData>({
-      make: '',
-      model: '',
-      variant: '',
-      year: new Date().getFullYear(),
-      mileage: 0,
-      price: 0,
-      fuelType: 'PETROL' as FuelType,
-      transmission: 'MANUAL' as Transmission,
-      bodyType: 'SEDAN' as BodyType,
-      colour: '',
-      description: '',
+    useState<Vehicle>({
+    id:'',
+    dealerId: '',
+    make: '',
+    model: '',
+    variant: '',
+    year: new Date().getFullYear(),
+    mileage: 0,
+    price: 0,
+    fuelType: 'PETROL',
+    transmission: 'MANUAL',
+    bodyType: 'SEDAN',
+    colour: '',
+    description: '',
+    status: 'DRAFT',
+    createdAt: '',
+    updatedAt:''
     })
 
   const [loading, setLoading] =
@@ -24,12 +29,15 @@ function useVehicleForm() {
 
   const [error, setError] =
     useState<string | null>(null)
+    const loadVehicle = (vehicle: Vehicle) => {
+      setFormData(vehicle)
+    }
 
   const updateField = <
-    K extends keyof CreateVehicleFormData
+    K extends keyof Vehicle
   >(
     field: K,
-    value: CreateVehicleFormData[K]
+    value: Vehicle[K]
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -39,6 +47,8 @@ function useVehicleForm() {
 
   const resetForm = () => {
     setFormData({
+      id:'',
+      dealerId: '',
       make: '',
       model: '',
       variant: '',
@@ -50,6 +60,8 @@ function useVehicleForm() {
       bodyType: 'SEDAN',
       colour: '',
       description: '',
+      createdAt: '',
+      updatedAt:''
     })
     setError(null)
   }
@@ -58,6 +70,7 @@ function useVehicleForm() {
     formData,
     loading,
     error,
+    loadVehicle,
     setLoading,
     setError,
     updateField,

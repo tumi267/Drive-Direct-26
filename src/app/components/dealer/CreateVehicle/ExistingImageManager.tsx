@@ -34,7 +34,7 @@ function ExistingImageManager({savedImages,setSavedimages,}: Props) {
                 }
               alt={`Image ${index + 1}`}
               width={200}
-              height={200}
+              height={100}
             />
             <p>
               Position {index + 1}

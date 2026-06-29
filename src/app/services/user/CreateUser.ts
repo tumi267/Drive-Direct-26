@@ -3,7 +3,6 @@ import { UserOnboardFormData } from "@/app/libs/signup/types"
 export async function createUser(
   data: UserOnboardFormData
 ) {
-  console.log(data)
   const response = await fetch('/api/onboarding/user', {
     method: 'POST',
     headers: {

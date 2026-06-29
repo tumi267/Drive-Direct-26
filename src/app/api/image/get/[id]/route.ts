@@ -3,12 +3,10 @@ import { NextResponse } from 'next/server'
 
 export async function GET(req: Request,{params,}: {
     params: {
-      vehicleId: string
+      id: string
     }}) {
   try {
-    const images = await getVehicleImages(
-      params.vehicleId
-    )
+    const images = await getVehicleImages(params.id)
     return NextResponse.json(images)
   } catch (error) {
     console.error(error)
