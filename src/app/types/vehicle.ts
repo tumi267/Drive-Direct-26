@@ -41,7 +41,7 @@ export type BodyType =
     url: string
     publicId: string
     position: number
-    createdAt: string
+    createdAt: Date
   }
   
   export interface Vehicle {

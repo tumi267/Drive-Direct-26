@@ -2,6 +2,7 @@
 
 import { Vehicle } from '@prisma/client'
 import prisma from '../../prisma'
+import { mapVehicle } from '../../maps'
 
 interface CreateVehicleProps {
   dealerId: string
@@ -43,7 +44,20 @@ export async function createVehicle(
 export async function getVehicleById(id:string) {
   return await prisma.vehicle.findUnique({where:{id:id}})
 }
+export async function getVehicleByIdwithimages(id:string) {
+  const vehicle= await prisma.vehicle.findUnique({where:{id:id},
+    include: {
+      images: {
+        orderBy: {
+          position: 'asc',
+        },
+      },
+      dealer: true,
+    }
+  })
 
+  return mapVehicle(vehicle)
+}
 export async function updateVehicle(
   data: Vehicle
 ) {
