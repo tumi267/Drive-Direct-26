@@ -67,3 +67,10 @@ export type BodyType =
     url: string
     publicId: string
   }
+  export type VehicleSort =
+  | 'newest'
+  | 'oldest'
+  | 'priceAsc'
+  | 'priceDesc'
+  | 'year'
+  | 'mileage'
