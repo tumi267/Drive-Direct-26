@@ -42,8 +42,9 @@ async function page({searchParams}:Props) {
       vehicles={vehicles}
       />
       <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      path="/vehicle"
       />
       </div>
     </div>

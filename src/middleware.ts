@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 const protectedRoutes = createRouteMatcher([
   '/admin(.*)',
-  '/dealer(.*)',
+  '/dealer/(.*)',
   '/user(.*)',
 ])
 

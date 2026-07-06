@@ -4,7 +4,7 @@ import React from 'react'
 
 function Nav() {
     // replace with dynamic list
-    const linklist=[{tag:'Home',add:'/'},{tag:'SignIn',add:'/signin'},{tag:'SignUp',add:'/signup'}]
+    const linklist=[{tag:'Home',add:'/'},{tag:'Dealers',add:'/DealersP'},{tag:'SignIn',add:'/signin'},{tag:'SignUp',add:'/signup'}]
   return (
     <div className='flex '>{linklist.map((e)=>{return <Link href={e.add}>{e.tag}</Link>})}</div>
   )

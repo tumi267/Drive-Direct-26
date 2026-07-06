@@ -5,18 +5,20 @@ import Link from 'next/link'
 interface Props {
   currentPage: number
   totalPages: number
+  path: string
 }
 
 function Pagination({
   currentPage,
   totalPages,
+  path,
 }: Props) {
   return (
     <div className="flex justify-center gap-2 mt-10">
 
       {currentPage > 1 && (
         <Link
-          href={`/vehicle?page=${currentPage - 1}`}
+          href={`${path}?page=${currentPage - 1}`}
           className="border px-4 py-2 rounded"
         >
           Previous
@@ -26,10 +28,10 @@ function Pagination({
       {Array.from(
         { length: totalPages },
         (_, i) => i + 1
-      ).map(page => (
+      ).map((page) => (
         <Link
           key={page}
-          href={`/vehicle?page=${page}`}
+          href={`${path}?page=${page}`}
           className={`border px-4 py-2 rounded ${
             page === currentPage
               ? 'bg-black text-white'
@@ -42,7 +44,7 @@ function Pagination({
 
       {currentPage < totalPages && (
         <Link
-          href={`/vehicle?page=${currentPage + 1}`}
+          href={`${path}?page=${currentPage + 1}`}
           className="border px-4 py-2 rounded"
         >
           Next
