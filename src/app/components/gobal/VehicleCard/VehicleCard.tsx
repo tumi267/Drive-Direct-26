@@ -1,4 +1,5 @@
 import { Vehicle } from '@/app/types/vehicle'
+import CompareButton from '../../(public)/Compare/CompareButton'
 
 interface Props {
   vehicle: Vehicle
@@ -22,8 +23,9 @@ function VehicleCard({
           vehicle.price
         ).toLocaleString()}
       </p>
-
-
+      <CompareButton
+      vehicle={vehicle}
+      />
     </div>
   )
 }

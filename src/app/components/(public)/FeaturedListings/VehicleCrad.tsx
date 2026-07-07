@@ -3,6 +3,7 @@
 import { Vehicle } from '@/app/types/vehicle'
 import Image from 'next/image'
 import Link from 'next/link'
+import CompareButton from '../Compare/CompareButton'
 
 interface Props {
   vehicle: Vehicle
@@ -25,7 +26,9 @@ export default function VehicleCard({
           height={250}
           className="h-52 w-full object-cover"
         />
-
+      <CompareButton
+      vehicle={vehicle}
+      />
         <div className="p-4 space-y-2">
           <h2 className="text-lg font-semibold">
             {vehicle.year} {vehicle.make} {vehicle.model}

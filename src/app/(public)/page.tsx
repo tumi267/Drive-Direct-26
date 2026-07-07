@@ -7,17 +7,24 @@ import VehicleType from "../components/(public)/VehicleType/VehicleType";
 import { getAllVehicles } from "../libs/crud/vehicle/vehicle.get";
 
 export default async function Home() {
-  const vehicles = await getAllVehicles()
-  return (
-   <>
-   <Hero/>
-   <Search/>
-   <BrandGrid/>
-   <Banner/>
-   <VehicleType/>
-   <VehicleGrid
-   vehicles={vehicles}
-   />
-   </>
-  )
+  try {
+    const vehicles = await getAllVehicles()
+    return (
+     <>
+     <Hero/>
+     <Search/>
+     <BrandGrid/>
+     <Banner/>
+     <VehicleType/>
+     <VehicleGrid
+     vehicles={vehicles}
+     />
+     </>
+    )
+  } catch (error) {
+    return<>
+    <><div><h1>oops there seems to be a problems with your internet please check connection and try again</h1></div></>
+    </>
+  }
+
 }
