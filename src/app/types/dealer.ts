@@ -1,3 +1,5 @@
+import { DealerRole } from "@prisma/client"
+
 export interface DealerListingImage {
     id: string
     url: string
@@ -17,5 +19,17 @@ export interface DealerListingImage {
     _count: {
       listings: number
     }
-    
+  }
+  export interface DealerUser {
+    id: string
+    clerkId: string
+  
+    dealerId: string
+  
+    firstName: string
+    lastName: string
+  
+    role: DealerRole
+    status:string
+    createdAt:string
   }
