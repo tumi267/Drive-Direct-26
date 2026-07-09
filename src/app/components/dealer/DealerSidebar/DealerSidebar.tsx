@@ -31,7 +31,9 @@ export default function DealerSidebar() {
             label={link.label}
           />
         ))}
-        {(dealer?.role=='OWNER'||dealer?.role=='MANAGER')&&(<Link href={'/dealer/manageusers'} className="block w-full rounded-md border px-4 py-2 text-left hover:bg-gray-100">manage users</Link>)}
+        {(dealer?.role=='OWNER'||dealer?.role=='MANAGER')&&(<><Link href={'/dealer/manageusers'} className="block w-full rounded-md border px-4 py-2 text-left hover:bg-gray-100">manage users</Link>
+        <Link href={'/dealer/addbulkvehilce'} className="block w-full rounded-md border px-4 py-2 text-left hover:bg-gray-100">add bulk</Link>
+        </>)}
          <SignedIn>
         <SignOutButton redirectUrl="/">
           <button className="block w-full rounded-md border px-4 py-2 text-left hover:bg-gray-100">

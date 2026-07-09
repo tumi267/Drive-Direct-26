@@ -1,8 +1,11 @@
+import AddBulkVehicle from '@/app/components/dealer/AddBulkVehicle/AddBulkVehicle'
 import React from 'react'
 
 function page() {
   return (
-    <div>page</div>
+    <div>
+        <AddBulkVehicle/>
+    </div>
   )
 }
 
