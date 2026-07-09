@@ -9,3 +9,28 @@ export async function getDealerUser() {
     }
     return data
   }
+
+
+  export async function getPaginatedDealersUser(
+    id: string
+  ) {
+    const response = await fetch('/api/dealer/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({id:id}),
+    })
+  
+    const result = await response.json()
+  
+    if (!response.ok) {
+      console.log(result.message)
+      throw new Error(
+        result.message ??
+          'Failed to create vehicle'
+      )
+    }
+  
+    return result
+  }

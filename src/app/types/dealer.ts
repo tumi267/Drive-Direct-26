@@ -23,13 +23,16 @@ export interface DealerListingImage {
   export interface DealerUser {
     id: string
     clerkId: string
-  
-    dealerId: string
-  
     firstName: string
     lastName: string
-  
     role: DealerRole
-    status:string
-    createdAt:string
+    status: string
+    dealerId: string
+    createdAt: Date
+    updatedAt: Date
+  }
+  
+  export interface DealerUserWithDealer
+    extends DealerUser {
+    dealer: Dealer
   }

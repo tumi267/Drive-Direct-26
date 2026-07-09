@@ -6,7 +6,11 @@ interface GetDealersProps {
   limit?: number
   search?: string
 }
-
+interface GetDealerUserInfoProps{
+  page?: number
+  limit?: number
+  dealerId:string
+}
 export async function getPaginatedDealers({
   page = 1,
   limit = 12,
@@ -88,3 +92,31 @@ export async function getDealerById(id: string) {
       },
     })
   }
+
+export async function getPaginatedDealersUser({page = 1,limit = 10,dealerId,}: GetDealerUserInfoProps) {
+  const skip = (page - 1) * limit
+  const where = {
+    dealerId,
+  }
+  const [users, total] = await Promise.all([
+    prisma.dealerUser.findMany({
+      where,
+      orderBy: {
+        createdAt: 'desc',
+      },
+      skip,
+      take: limit,
+    }),
+
+    prisma.dealerUser.count({
+      where,
+    }),
+  ])
+
+  return {
+    users,
+    currentPage: page,
+    totalPages: Math.ceil(total / limit),
+    total,
+  }
+}

@@ -8,7 +8,7 @@ function CreateUser() {
   if (!dealer) {
     return (
       <div className="rounded-lg border p-6">
-        Failed to load dealer.
+        loading dealer profile
       </div>
     )
   }

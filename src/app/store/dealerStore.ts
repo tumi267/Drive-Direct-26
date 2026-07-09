@@ -1,11 +1,11 @@
 import { create } from 'zustand'
-import { DealerUser } from '../types/dealer'
+import { DealerUserWithDealer } from '../types/dealer'
 
 interface DealerStore {
-    dealer: DealerUser | null
+    dealer: DealerUserWithDealer | null
   
     setDealer: (
-      dealer: DealerUser
+      dealer: DealerUserWithDealer
     ) => void
   
     clearDealer: () => void
