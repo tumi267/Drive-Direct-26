@@ -2,9 +2,10 @@
 
 import useCsvImport from '@/app/hooks/useCssvImport'
 import { useDropzone } from 'react-dropzone'
+import PreviewTable from './PreviewTable'
 
 function AddBulkVehicle() {
-  const {rows,errors,loading,onDrop,clear,} = useCsvImport()
+  const {rows,errors,loading,onDrop,clear,upload} = useCsvImport()
 
   const { getRootProps,getInputProps,isDragActive,} = useDropzone({
     onDrop,
@@ -65,10 +66,11 @@ function AddBulkVehicle() {
             >
               Clear
             </button>
+            <button onClick={upload}>upload list</button>
           </div>
-          <p className="mt-4 text-gray-500">
-            Preview table coming next...
-          </p>
+          <PreviewTable
+          rows={rows}
+          />
         </div>
       )}
     </div>

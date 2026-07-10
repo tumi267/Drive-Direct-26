@@ -80,3 +80,25 @@ export async function updateVehicle(
     },
   })
 }
+
+export async function createManyVehicles(
+  vehicles: CreateVehicleProps[]
+) {
+  return await prisma.vehicle.createMany({
+    data: vehicles.map((vehicle) => ({
+      dealerId: vehicle.dealerId,
+      make: vehicle.make,
+      model: vehicle.model,
+      variant: vehicle.variant,
+      year: vehicle.year,
+      mileage: vehicle.mileage,
+      price: vehicle.price,
+      fuelType: vehicle.fuelType as any,
+      transmission: vehicle.transmission as any,
+      bodyType: vehicle.bodyType as any,
+      colour: vehicle.colour,
+      description: vehicle.description,
+    })),
+    skipDuplicates: true,
+  })
+}

@@ -3,6 +3,7 @@
 import { useCallback, useState } from 'react'
 import Papa from 'papaparse'
 import { CsvVehicle } from '../types/csv'
+import { uploadbulk } from '../services/dealer/CreateBulk'
 
 export default function useCsvImport() {
   const [rows, setRows] = useState<CsvVehicle[]>([])
@@ -37,7 +38,19 @@ export default function useCsvImport() {
     setRows([])
     setErrors([])
   }
+  const upload=async()=>{
+    try {
+      // loading state
+        const res=await uploadbulk(rows) 
+        if (res.success) {
+          alert(`${res.imported} vehicles imported successfully`)
+          clear()
+        }
+    } catch (error) {
+        console.error(error)
+    }
+  }
   return {
-    rows,errors,loading,onDrop,clear,
+    rows,errors,loading,onDrop,clear,upload
   }
 }
