@@ -7,13 +7,18 @@ export default function useTickets() {
   const [tickets, setTickets] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-
+  const [page,setpage]=useState(1)
+  const [total,setTotalPages]=useState(0)
   useEffect(() => {
     const loadTickets = async () => {
       try {
-        const data = await getDealerTickets()
-
+        setLoading(true)
+        setError('')
+  
+        const data = await getDealerTickets(page)
+  
         setTickets(data.tickets)
+        setTotalPages(data.pagination.pages)
       } catch (err) {
         setError(
           err instanceof Error
@@ -24,9 +29,9 @@ export default function useTickets() {
         setLoading(false)
       }
     }
-
+  
     loadTickets()
-  }, [])
+  }, [page])
 
-  return { tickets,loading,error,}
+  return { tickets,loading,error,total,page,setpage}
 }

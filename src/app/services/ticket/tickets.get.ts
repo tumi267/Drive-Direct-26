@@ -1,5 +1,5 @@
 export async function getDealerTickets(
-    page = 1,
+    page:number,
     limit = 10
   ) {
     const res = await fetch('/api/ticket/get', {

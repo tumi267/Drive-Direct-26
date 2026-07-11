@@ -1,10 +1,13 @@
 'use client'
 
+import useTickets from "@/app/hooks/useTickets"
 import TicketCard from "../Tickets/TicketCard"
 import TicketEmpty from "../Tickets/TicketEmpty"
+import Pagination from "../../gobal/Pagination/Pagination"
+import DashboardPagination from "../DashboardPagination/DashboardPagination"
 
 export default function Tickets() {
-  const {tickets,loading,error,} = useTickets()
+  const {tickets,loading,error,total,page,setpage} = useTickets()
 
   if (loading) {
     return <div>Loading...</div>
@@ -26,7 +29,12 @@ export default function Tickets() {
           ticket={ticket}
         />
       ))}
-
+      <DashboardPagination
+      currentPage={page}
+      totalPages={total}
+      onPageChange={setpage}
+    />
+     
     </div>
   )
 }

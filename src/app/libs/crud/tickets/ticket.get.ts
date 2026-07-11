@@ -46,3 +46,17 @@ export async function getTicketPaginated({
     },
   }
 }
+
+export async function getTicketById(
+  id:string
+){
+  const res=await prisma.ticket.findUnique({
+    where:{id},
+    include:{
+      vehicle: true,
+      claimedBy: true,
+      dealer:true
+    }
+  })
+  return res
+}

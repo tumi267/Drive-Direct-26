@@ -1,17 +1,10 @@
-'use client'
-
-import Link from "next/link"
-
-interface Props {
-  ticket: any
+import React from 'react'
+interface Props{
+    ticket:any
 }
-
-export default function TicketCard({
-  ticket,
-}: Props) {
+function TicketTable({ticket}:Props) {
   return (
-    <Link href={`/dealer/ticket/${ticket.id}`}>
-    <div className="rounded-lg border bg-white p-5 shadow-sm">
+    <div className="">
 
       <div className="flex items-center justify-between">
 
@@ -31,7 +24,12 @@ export default function TicketCard({
         <span className="rounded bg-blue-100 px-3 py-1 text-sm">
           {ticket.status}
         </span>
-
+        {ticket.claimedBy && (<div className="text-sm">Assigned to:{' '}
+        <span className="font-semibold">
+        {ticket.claimedBy.firstName} {ticket.claimedBy.lastName}
+        </span>
+        </div>
+        )}
       </div>
 
       <div className="mt-4">
@@ -52,6 +50,7 @@ export default function TicketCard({
       </div>
 
     </div>
-    </Link>
   )
 }
+
+export default TicketTable
