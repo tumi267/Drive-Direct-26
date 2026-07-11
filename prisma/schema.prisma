@@ -21,6 +21,7 @@ model Dealer {
   phone String?
   listings Vehicle[]
   users DealerUser[]
+  tickets         Ticket[]
   verificationStatus DealerVerificationStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -37,7 +38,7 @@ model DealerUser {
 
   dealerId String
   dealer Dealer @relation(fields:[dealerId], references:[id])
-
+  tickets         Ticket[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -50,6 +51,7 @@ clerkid String @unique
 favorites   Favorite[]
 inquiries   Inquiry[]
 role    UserRole @default(USER)
+
 createdAt  DateTime @default(now())
 updatedAt  DateTime @updatedAt
 }
@@ -73,6 +75,7 @@ model Vehicle {
   images          VehicleImage[]
   favorites       Favorite[]
   inquiries       Inquiry[]
+  tickets         Ticket[]
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 }
@@ -109,6 +112,63 @@ model Inquiry {
   createdAt   DateTime @default(now())
 }
 
+model Ticket {
+  id           String   @id @default(uuid())
+
+  reference    String   @unique
+
+  type         TicketType
+
+  status       TicketStatus
+
+  department   Department
+
+  vehicleId    String
+  vehicle      Vehicle @relation(fields: [vehicleId], references: [id])
+
+  dealerId     String
+  dealer       Dealer  @relation(fields: [dealerId], references: [id])
+
+  claimedById  String?
+  claimedBy    DealerUser? @relation(fields: [claimedById], references: [id])
+
+  firstName    String
+  lastName     String
+  email        String
+  phone        String?
+
+  message      String   @db.Text
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum TicketType {
+  VEHICLE_ENQUIRY
+}
+enum Department {
+  SALES
+  FINANCE
+  MANAGEMENT
+  OPERATIONS
+}
+enum TicketStatus {
+  NEW_ENQUIRY
+  ASSIGNED_TO_SALES
+  CONTACTED
+  QUOTE_IN_PROGRESS
+  FINANCE_REVIEW
+  AWAITING_MANAGEMENT_APPROVAL
+  QUOTE_SENT
+  AWAITING_CUSTOMER_DECISION
+  ACCEPTED
+  FINANCE_PROCESSING
+  READY_FOR_DELIVERY
+  DELIVERED
+  CLOSED
+  CANCELLED
+  ARCHIVED
+}
 enum AdminRole {
   ADMIN
   TRAINER

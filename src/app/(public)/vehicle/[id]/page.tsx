@@ -9,7 +9,8 @@ export default async function Page({
 }: {
   params: { id: string }
 }) {
-  const vehicle = await getVehicleByIdwithimages(params.id)
+  try {
+    const vehicle = await getVehicleByIdwithimages(params.id)
 
   if (!vehicle) {
     return <div>Vehicle not found.</div>
@@ -31,4 +32,8 @@ export default async function Page({
       />
     </div>
   )
+  } catch (error) {
+    return <div>opps looks like something went wrong</div>
+  }
+  
 }

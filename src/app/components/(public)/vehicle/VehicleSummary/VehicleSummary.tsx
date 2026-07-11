@@ -1,4 +1,5 @@
 import { Vehicle } from '@/app/types/vehicle'
+import Enquire from '../Enquire/Enquire'
 
 interface Props {
   vehicle: Vehicle
@@ -46,9 +47,8 @@ export default function VehicleSummary({
 
       </div>
 
-      <button className="w-full bg-blue-600 text-white py-3 rounded-lg">
-        Enquire
-      </button>
+      <Enquire
+      vehcile={vehicle}/>
 
     </div>
   )

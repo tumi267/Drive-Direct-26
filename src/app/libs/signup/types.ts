@@ -16,3 +16,10 @@ export interface DealerOnboardFormData {
     firstName: string
     lastName: string
   }
+export interface EnquiryForm{
+  firstName:string
+  lastName:string
+  email:string
+  phone?:string
+  message:string
+}

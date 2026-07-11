@@ -54,7 +54,7 @@ export async function getVehiclesByDealer(
 
   export async function getPaginatedVehicles({
     page = 1,
-    limit = 1,
+    limit = 10,
     dealerId,
     // status,
     make,

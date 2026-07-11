@@ -1,7 +1,7 @@
 import { CsvVehicle } from "@/app/types/csv";
 
 export async function uploadbulk(rows:CsvVehicle[]) {
-  console.log(rows)
+  
     const res =await fetch('/api/vehicle/createbulk', {
         method: 'POST',
         headers: {
