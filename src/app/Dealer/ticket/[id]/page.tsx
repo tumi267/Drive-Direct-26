@@ -1,4 +1,4 @@
-import TicketTable from '@/app/components/dealer/Tickets/TicketTable'
+import TicketDetails from '@/app/components/dealer/Tickets/TicketDetails'
 import { getTicketById } from '@/app/libs/crud/tickets/ticket.get'
 import React from 'react'
 
@@ -16,7 +16,7 @@ async function page({
     
       return (
         <div className="container mx-auto py-8">
-            <TicketTable
+            <TicketDetails
             ticket={ticket}
             />
         </div>

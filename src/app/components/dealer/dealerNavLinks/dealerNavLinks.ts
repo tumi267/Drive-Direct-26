@@ -12,8 +12,8 @@ export const dealerNavLinks = [
       href: '/dealer/listings/create',
     },
     {
-      label: 'Inquiries',
-      href: '/dealer/inquiries',
+      label: 'tickets',
+      href: '/dealer/tickets',
     },
     {
       label: 'Profile',
