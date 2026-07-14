@@ -191,18 +191,20 @@ function TicketDetails({ticket}:Props) {
 
 {/* CRM Actions */}
 
-<section className="rounded-lg border bg-white p-6 shadow-sm">
+<section className="w-full rounded-lg border bg-white p-6 shadow-sm">
 
   <h2 className="mb-5 text-lg font-semibold">
     Actions
   </h2>
 
-  <div className="flex flex-wrap gap-3">
+  <div className="flex flex-wrap ">
 
     {!ticket.claimedBy ?
       <ClamTicketBtn
       ticketId={ticket.id}
-      />:<Email/>}
+      />:<Email
+      clientmail={ticket.email}
+      />}
 
   </div>
 

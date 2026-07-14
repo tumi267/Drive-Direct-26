@@ -3,7 +3,8 @@ import React from 'react'
 
 function page() {
   return (
-    <div className='flex justify-center'><SignIn/></div>
+    <div className='flex justify-center'><SignIn
+    /></div>
   )
 }
 

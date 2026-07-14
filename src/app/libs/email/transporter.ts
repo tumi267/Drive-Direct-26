@@ -6,10 +6,6 @@ export function createTransporter(config: TransportConfig) {
     host: config.host,
     port: config.port,
     secure: config.secure,
-
-    auth: {
-      user: config.username,
-      pass: config.password,
-    },
+    auth: config.auth, 
   });
 }

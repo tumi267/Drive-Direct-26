@@ -10,13 +10,15 @@ export function useEmail() {
   const [provider, setProvider] = useState<EmailProvider>("gmail");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [sendto,setsendto]=useState("")
   const connection: EmailConnection = {provider,email, password,};
   const testConnection = useCallback(async () => {
     setLoading(true);
     setError(null);
 
+    
     try {
-      await testEmailConnection( provider,email,password);
+      await testEmailConnection( provider);
 
       setConnected(true);
 
@@ -34,9 +36,8 @@ export function useEmail() {
     async (options: SendEmailOptions) => {
       setLoading(true);
       setError(null);
-
       try {
-        await sendEmail( provider,email,password, options);
+        await sendEmail( provider, options);
         return true;
       } catch (err) {
         setError(
@@ -50,6 +51,6 @@ export function useEmail() {
     [connection]
   );
 
-  return {loading,connected,error,provider,email,password,setProvider,setEmail,setPassword,testConnection,sendEmail: handleSendEmail,
+  return {loading,connected,error,provider,sendto,setsendto,setProvider,setEmail,setPassword,testConnection,sendEmail,handleSendEmail,
   };
 }

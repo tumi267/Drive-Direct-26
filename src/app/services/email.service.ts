@@ -3,8 +3,7 @@ import { SendEmailOptions } from "../libs/email/types";
 
 export async function testEmailConnection(
   provider: string,
-  email: string,
-  password: string
+
 ) {
   const response = await fetch("/api/email/test", {
     method: "POST",
@@ -13,8 +12,7 @@ export async function testEmailConnection(
     },
     body: JSON.stringify({
       provider,
-      email,
-      password,
+ 
     }),
   });
 
@@ -29,8 +27,6 @@ export async function testEmailConnection(
 
 export async function sendEmail(
   provider: string,
-  email: string,
-  password: string,
   options: SendEmailOptions
 ) {
   const response = await fetch("/api/email/send", {
@@ -40,8 +36,6 @@ export async function sendEmail(
     },
     body: JSON.stringify({
       provider,
-      email,
-      password,
       ...options,
     }),
   });
@@ -52,7 +46,7 @@ export async function sendEmail(
     throw new Error(data.message ?? "Failed to send email.");
   }
 
-  return data;
+  return ;
 }
 
 export async function disconnectEmail() {
