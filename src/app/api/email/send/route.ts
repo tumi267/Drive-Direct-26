@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   try {
     // 1. Destructure provider and options matching your frontend service layout precisely
     const body = await req.json();
-    const { provider, to, subject, message, cc, bcc,ticketId } = body;
+    const { provider, to, subject, message, cc, bcc,ticketId,createdById } = body;
 
     // 2. Validate the active Clerk session context on the server side
     const { userId } = await auth();
@@ -78,12 +78,14 @@ export async function POST(req: NextRequest) {
         bcc,
       }
     );
+    
     await createTicketInteraction({
       ticketId,
       type: "EMAIL",
       subject,
       notes: message,
       outcome: "CUSTOMER_RESPONDED",
+      createdById:createdById
     });
 
     return NextResponse.json({

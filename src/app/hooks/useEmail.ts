@@ -8,6 +8,7 @@ export function useEmail() {
   const [connected, setConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [provider, setProvider] = useState<EmailProvider>("gmail");
+  const [createdById,setcreatedById]=useState('')
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ticketId,setTicketid]=useState('');
@@ -51,7 +52,7 @@ export function useEmail() {
       setLoading(true);
       setError(null);
       try {
-        await sendEmail( provider,ticketId, options);
+        await sendEmail( provider,createdById,ticketId, options);
         return true;
       } catch (err) {
         setError(
@@ -65,6 +66,6 @@ export function useEmail() {
     [connection]
   );
 
-  return {loading,connected,error,provider,updateMail,mail,setMail,setProvider,testConnection,handleSendEmail,setTicketid
+  return {loading,connected,error,provider,updateMail,setcreatedById,mail,setMail,setProvider,testConnection,handleSendEmail,setTicketid
   };
 }

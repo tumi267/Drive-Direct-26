@@ -2,21 +2,18 @@
 
 import { useEmail } from "@/app/hooks/useEmail";
 import { EmailProvider } from "@/app/libs/email";
+import { ticketProps } from "@/app/types/tickets";
 import { useEffect } from "react";
 
-interface Props{
-  clientmail:string
-  ticketId:string
-}
-
-export default function Email({clientmail,ticketId}:Props) {
-  const {loading,connected,error,provider,setProvider,testConnection,handleSendEmail,updateMail,mail,setMail,setTicketid} = useEmail();
+export default function Email({clientmail,ticketId,createdById}:ticketProps) {
+  const {loading,connected,error,provider,setProvider,setcreatedById,testConnection,handleSendEmail,updateMail,mail,setMail,setTicketid} = useEmail();
   useEffect(() => {
     setMail((prev) => ({
       ...prev,
       to: clientmail,
     }))
     setTicketid(ticketId)
+    setcreatedById(createdById)
   }, [clientmail])
   return (
     <div className="w-full rounded-lg border border-gray-200 p-6 grid grid-cols-2 gap-5">

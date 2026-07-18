@@ -21,6 +21,7 @@ interface CreateTicketInteractionRequest {
   subject?: string;
   outcome?: InteractionOutcome;
   followUpAt?: Date;
+  createdById:string;
 }
 export async function createTicket(
   data: CreateTicketProps
@@ -56,6 +57,7 @@ export async function createTicketInteraction( data: CreateTicketInteractionRequ
         notes: data.notes,
         outcome: data.outcome,
         followUpAt: data.followUpAt,
+        createdById:data.createdById
       },
     })
 }

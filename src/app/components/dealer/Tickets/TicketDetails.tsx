@@ -1,11 +1,12 @@
 import React from 'react'
 import ClamTicketBtn from './ClamTicketBtn'
 import Email from '../../email/Email'
+import TicketContactBtn from './TicketContactBtn'
 interface Props{
     ticket:any
 }
 function TicketDetails({ticket}:Props) {
-  console.log(ticket.claimedBy)
+ 
   return (
 <div className="space-y-6">
 
@@ -28,11 +29,17 @@ function TicketDetails({ticket}:Props) {
       </p>
 
     </div>
-
-    <span className="rounded-lg bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700">
+    <span>
+    <div className="rounded-lg bg-blue-100 px-4 py-2  text-sm font-medium text-blue-700">
       {ticket.status.replaceAll('_', ' ')}
-    </span>
-
+    </div>
+  
+    <TicketContactBtn
+      clientmail=''
+      ticketId={ticket.id}
+      createdById={ticket.claimedBy.id}
+      />
+      </span>
   </div>
 
   <div className="mt-6 grid grid-cols-2 gap-6">
@@ -48,7 +55,8 @@ function TicketDetails({ticket}:Props) {
       </p>
 
     </div>
-
+    
+   
     <div>
 
       <p className="text-xs uppercase text-gray-500">
@@ -206,6 +214,7 @@ function TicketDetails({ticket}:Props) {
       />:<Email
       clientmail={ticket.email}
       ticketId={ticket.id}
+      createdById={ticket.claimedBy.id}
       />}
 
   </div>

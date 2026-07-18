@@ -41,6 +41,7 @@ model DealerUser {
   tickets         Ticket[]
   createdRequirements TicketRequirement[]
   uploadedDocuments   TicketDocument[]
+  interactions        TicketInteraction[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -162,7 +163,8 @@ model TicketInteraction {
   outcome     InteractionOutcome?
 
   followUpAt  DateTime?
-
+  createdById String?
+  createdBy   DealerUser? @relation(fields: [createdById], references: [id])
   createdAt   DateTime @default(now())
 }
 

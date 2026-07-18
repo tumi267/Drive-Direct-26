@@ -27,6 +27,7 @@ export async function testEmailConnection(
 
 export async function sendEmail(
   provider: string,
+  createdById:string,
   ticketId:string,
   options: SendEmailOptions,
 ) {
@@ -38,6 +39,7 @@ export async function sendEmail(
     body: JSON.stringify({
       provider,
       ticketId,
+      createdById,
       ...options,
     }),
   });
