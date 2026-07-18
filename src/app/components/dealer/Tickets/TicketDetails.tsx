@@ -2,6 +2,8 @@ import React from 'react'
 import ClamTicketBtn from './ClamTicketBtn'
 import Email from '../../email/Email'
 import TicketContactBtn from './TicketContactBtn'
+import TicketHistory from './TicketHistory'
+import TicketTransferButton from './TranferTicket'
 interface Props{
     ticket:any
 }
@@ -39,6 +41,15 @@ function TicketDetails({ticket}:Props) {
       ticketId={ticket.id}
       createdById={ticket.claimedBy.id}
       />
+      <br/>
+    <TicketHistory
+    ticketID={ticket.id}
+    />
+    <TicketTransferButton
+    ticketId={ticket.id}
+    createdById={ticket.claimedBy.id}
+    currentDepartment={ticket.status}
+    />
       </span>
   </div>
 

@@ -60,3 +60,22 @@ export async function getTicketById(
   })
   return res
 }
+
+export async function getTicketHistory(
+  id:string
+){
+  const res=await prisma.ticketInteraction.findMany({
+    where:{ticketId:id},
+    include: {
+      createdBy:{select:{
+        firstName:true,
+        lastName:true
+      }}
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    
+  })
+  return res
+}

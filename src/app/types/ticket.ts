@@ -43,3 +43,13 @@ export interface TicketNotes {
       | "COMPLETED"
       | "CANCELLED"
   }
+
+  export interface TransferTicketRequest {
+    ticketId: string
+    dealerUserId: string
+    department:
+      | "SALES"
+      | "FINANCE"
+      | "MANAGEMENT"
+      | "OPERATIONS"
+  }
