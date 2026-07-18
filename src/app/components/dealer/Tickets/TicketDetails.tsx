@@ -5,6 +5,7 @@ interface Props{
     ticket:any
 }
 function TicketDetails({ticket}:Props) {
+  console.log(ticket.claimedBy)
   return (
 <div className="space-y-6">
 
@@ -204,6 +205,7 @@ function TicketDetails({ticket}:Props) {
       ticketId={ticket.id}
       />:<Email
       clientmail={ticket.email}
+      ticketId={ticket.id}
       />}
 
   </div>

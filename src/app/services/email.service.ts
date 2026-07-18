@@ -27,7 +27,8 @@ export async function testEmailConnection(
 
 export async function sendEmail(
   provider: string,
-  options: SendEmailOptions
+  ticketId:string,
+  options: SendEmailOptions,
 ) {
   const response = await fetch("/api/email/send", {
     method: "POST",
@@ -36,6 +37,7 @@ export async function sendEmail(
     },
     body: JSON.stringify({
       provider,
+      ticketId,
       ...options,
     }),
   });

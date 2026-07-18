@@ -1,6 +1,7 @@
 // src/app/libs/crud/ticket/ticket.create.ts
 
 import prisma from '@/app/libs/prisma'
+import { InteractionOutcome, InteractionType } from '@prisma/client'
 
 interface CreateTicketProps {
   type: 'VEHICLE_ENQUIRY'
@@ -13,6 +14,14 @@ interface CreateTicketProps {
   message: string
 }
 
+interface CreateTicketInteractionRequest {
+  ticketId: string;
+  type: InteractionType;
+  notes: string;
+  subject?: string;
+  outcome?: InteractionOutcome;
+  followUpAt?: Date;
+}
 export async function createTicket(
   data: CreateTicketProps
 ) {
@@ -37,4 +46,16 @@ export async function createTicket(
       department: 'SALES',
     },
   })
+}
+export async function createTicketInteraction( data: CreateTicketInteractionRequest){
+    return await prisma.ticketInteraction.create({
+      data: {
+        ticketId: data.ticketId,
+        type: data.type,
+        subject: data.subject,
+        notes: data.notes,
+        outcome: data.outcome,
+        followUpAt: data.followUpAt,
+      },
+    })
 }

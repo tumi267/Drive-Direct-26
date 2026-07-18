@@ -6,13 +6,18 @@ import { useEffect } from "react";
 
 interface Props{
   clientmail:string
+  ticketId:string
 }
 
-export default function Email({clientmail}:Props) {
-  const {loading,connected,error,provider,setProvider,testConnection,sendto,setsendto,handleSendEmail} = useEmail();
-  useEffect(()=>{
-    setsendto(clientmail)
-  },[clientmail])
+export default function Email({clientmail,ticketId}:Props) {
+  const {loading,connected,error,provider,setProvider,testConnection,handleSendEmail,updateMail,mail,setMail,setTicketid} = useEmail();
+  useEffect(() => {
+    setMail((prev) => ({
+      ...prev,
+      to: clientmail,
+    }))
+    setTicketid(ticketId)
+  }, [clientmail])
   return (
     <div className="w-full rounded-lg border border-gray-200 p-6 grid grid-cols-2 gap-5">
       <div >
@@ -63,15 +68,30 @@ export default function Email({clientmail}:Props) {
         <h2>Send Email</h2>
 
         <form onSubmit={(e)=>{e.preventDefault();
-        handleSendEmail({to:sendto,
-          subject: 'subject',
-          message: 'message'})
+        handleSendEmail({...mail})
           }}>
-          <input placeholder="subject"/>
-          <br/>
-          <input placeholder="to" value={sendto} onChange={(e)=>{setsendto(e.target.value)}}/>
-          <br/>
-          <textarea className="w-full" placeholder="message"/>
+            <input
+  placeholder="To"
+  value={mail.to}
+  onChange={(e) =>
+    updateMail("to", e.target.value)
+  }
+/>
+<br/>
+          <input
+  placeholder="Subject"
+  value={mail.subject}
+  onChange={(e) =>
+    updateMail("subject", e.target.value)
+  }
+/>
+<br/>
+<textarea
+  value={mail.message}
+  onChange={(e) =>
+    updateMail("message", e.target.value)
+  }
+/>
           <br/>
           <button type="submit">send</button>
         </form>

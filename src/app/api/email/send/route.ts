@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendEmail } from "@/app/libs/email"; // Adjust this import to your actual file location
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { createTicketInteraction } from "@/app/libs/crud/tickets/ticket.create";
 
 // Dynamic map to translate user-selected options into Clerk OAuth keys
 const PROVIDER_MAP = {
@@ -14,7 +15,7 @@ export async function POST(req: NextRequest) {
   try {
     // 1. Destructure provider and options matching your frontend service layout precisely
     const body = await req.json();
-    const { provider, to, subject, message, cc, bcc } = body;
+    const { provider, to, subject, message, cc, bcc,ticketId } = body;
 
     // 2. Validate the active Clerk session context on the server side
     const { userId } = await auth();
@@ -77,6 +78,13 @@ export async function POST(req: NextRequest) {
         bcc,
       }
     );
+    await createTicketInteraction({
+      ticketId,
+      type: "EMAIL",
+      subject,
+      notes: message,
+      outcome: "CUSTOMER_RESPONDED",
+    });
 
     return NextResponse.json({
       success: true,

@@ -39,6 +39,8 @@ model DealerUser {
   dealerId String
   dealer Dealer @relation(fields:[dealerId], references:[id])
   tickets         Ticket[]
+  createdRequirements TicketRequirement[]
+  uploadedDocuments   TicketDocument[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -118,16 +120,14 @@ model Ticket {
   reference    String   @unique
 
   type         TicketType
-
   status       TicketStatus
-
   department   Department
 
   vehicleId    String
   vehicle      Vehicle @relation(fields: [vehicleId], references: [id])
 
   dealerId     String
-  dealer       Dealer  @relation(fields: [dealerId], references: [id])
+  dealer       Dealer @relation(fields: [dealerId], references: [id])
 
   claimedById  String?
   claimedBy    DealerUser? @relation(fields: [claimedById], references: [id])
@@ -137,10 +137,106 @@ model Ticket {
   email        String
   phone        String?
 
-  message      String   @db.Text
+  message      String @db.Text
+
+  interactions TicketInteraction[]
+  requirements TicketRequirement[]
+  documents    TicketDocument[]
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model TicketInteraction {
+  id          String @id @default(uuid())
+
+  ticketId    String
+  ticket      Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  type        InteractionType
+
+  subject     String?
+
+  notes       String @db.Text
+
+  outcome     InteractionOutcome?
+
+  followUpAt  DateTime?
+
+  createdAt   DateTime @default(now())
+}
+
+model TicketRequirement {
+  id          String @id @default(uuid())
+
+  ticketId    String
+  ticket      Ticket @relation(fields:[ticketId], references:[id], onDelete: Cascade)
+
+  category    String
+
+  value       String
+
+  createdById String
+  createdBy   DealerUser @relation(fields:[createdById], references:[id])
+
+  createdAt   DateTime @default(now())
+}
+
+
+
+model TicketDocument {
+
+  id String @id @default(uuid())
+
+  ticketId String
+  ticket Ticket @relation(fields:[ticketId], references:[id], onDelete: Cascade)
+
+  title String
+
+  url String
+
+  publicId String?
+
+  uploadedById String
+  uploadedBy DealerUser @relation(fields:[uploadedById], references:[id])
+
+  createdAt DateTime @default(now())
+}
+enum InteractionType {
+  PHONE_CALL
+  EMAIL
+  SMS
+  WALK_IN
+  MEETING
+  INTERNAL_NOTE
+  SYSTEM
+}
+enum InteractionOutcome {
+  NONE
+  NO_ANSWER
+  LEFT_MESSAGE
+  CUSTOMER_RESPONDED
+  FOLLOW_UP_REQUIRED
+  INFORMATION_REQUESTED
+  DOCUMENT_REQUESTED
+  APPOINTMENT_BOOKED
+  COMPLETED
+  CANCELLED
+}
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+enum RequirementType {
+  COLOUR
+  BUDGET
+  TRANSMISSION
+  TRADE_IN
+  FINANCE
+  DELIVERY_DATE
+  OTHER
 }
 
 enum TicketType {
