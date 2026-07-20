@@ -34,14 +34,17 @@ Priority Listings
 PayFast integration
 Purchase flow
 Listing priority logic
+
 Dealer Membership
 Free first month
 Subscription flow
 Dealer onboarding revisit
+
 User Dashboard
 Profile
 Favourites
 Enquiries
+
 Admin Dashboard
 Sales monitoring
 Commission tracking

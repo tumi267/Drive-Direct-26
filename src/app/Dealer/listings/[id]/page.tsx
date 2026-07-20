@@ -1,5 +1,6 @@
 import EditVehicleForm from '@/app/components/dealer/CreateVehicle/EditVehicleForm'
 import UploadImage from '@/app/components/dealer/CreateVehicle/UploadImage'
+import PayFastButton from '@/app/components/dealer/PayFastButton/PayFastButton'
 import { getVehicleById } from '@/app/libs/crud/vehicle/vehicle.create'
 import React from 'react'
 export const dynamic = 'force-dynamic'
@@ -20,6 +21,11 @@ async function page({params,}: {params: { id: string }}) {
   }
   return (
     <div>
+    <PayFastButton
+    dealerId={vehicle.dealerId}
+    vehicleId={vehicle.id}
+    days={7}
+    />
     <h1 className="text-2xl font-bold">
       Edit Vehicle
     </h1>
