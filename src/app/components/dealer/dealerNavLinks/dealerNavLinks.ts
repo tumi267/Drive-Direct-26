@@ -19,4 +19,8 @@ export const dealerNavLinks = [
       label: 'Profile',
       href: '/dealer/profile',
     },
+    {
+      label: 'Campaigne',
+      href: '/dealer/Campaign',
+    },
   ]

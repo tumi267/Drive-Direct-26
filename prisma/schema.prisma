@@ -23,6 +23,7 @@ model Dealer {
   users DealerUser[]
   tickets         Ticket[]
   priority Priority[]
+  BannerCampaign BannerCampaign[]
   verificationStatus DealerVerificationStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -80,6 +81,7 @@ model Vehicle {
   favorites       Favorite[]
   inquiries       Inquiry[]
   tickets         Ticket[]
+  BannerCampaign BannerCampaign[]
   priorityUntil DateTime? 
   isPriority Boolean @default(false)
   priorities Priority[]
@@ -226,6 +228,62 @@ model TicketDocument {
   uploadedBy DealerUser @relation(fields:[uploadedById], references:[id])
 
   createdAt DateTime @default(now())
+}
+
+model BannerCampaign {
+  id             String   @id @default(cuid())
+
+  dealerId       String?
+  dealer         Dealer?   @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+
+  title          String
+  description    String?
+
+  imageUrl       String?
+
+  placement      BannerPlacement
+
+  linkType       BannerLinkType
+
+  vehicleId      String?
+  vehicle        Vehicle? @relation(fields: [vehicleId], references: [id])
+
+  externalUrl    String?
+
+  startsAt       DateTime
+  endsAt         DateTime
+
+  status         BannerStatus @default(PENDING)
+
+  impressions    Int @default(0)
+  clicks         Int @default(0)
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+enum BannerPlacement {
+  HOME_TOP
+  HOME_MIDDLE
+  HOME_BOTTOM
+
+  FOOTER
+
+  SEARCH_TOP
+
+  DEALER_PAGE
+
+  BLOG
+}
+enum BannerStatus {
+  DRAFT
+  PENDING
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+enum BannerLinkType {
+  VEHICLE
+  EXTERNAL
 }
 enum InteractionType {
   PHONE_CALL
