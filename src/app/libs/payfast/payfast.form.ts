@@ -32,9 +32,9 @@ import {
       m_payment_id: payment.paymentReference,
       amount: payment.amount.toFixed(2),
       item_name: payment.itemName,
-    //   custom_str1: payment.dealerId,
-    //   custom_str2: payment.vehicleId,
-    //   custom_int1: payment.days.toString(),
+      custom_int1: payment.days.toString(),
+      custom_str1: payment.dealerId,
+      custom_str2: payment.vehicleId,
     }
   
     const signature = generatePayfastSignature(data,PAYFAST.passphrase)

@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     }
 
     const paymentReference = crypto.randomUUID();
-
+// set by from admin
     const PRICE_PER_DAY = 20;
 
     const amount = PRICE_PER_DAY * Number(days);

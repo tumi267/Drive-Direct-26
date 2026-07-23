@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto, { hash } from "crypto";
 
 function payfastEncode(value: string) {
   return encodeURIComponent(value.trim())
@@ -26,7 +26,7 @@ export function generatePayfastSignature(
   if (passphrase) {
     pfOutput += `&passphrase=${payfastEncode(passphrase)}`;
   }
-
+ 
   const md5 = crypto
     .createHash("md5")
     .update(pfOutput)

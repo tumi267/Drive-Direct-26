@@ -15,30 +15,18 @@ export default function usePayFast() {
   async function startPriorityPurchase({dealerId,vehicleId,days,}: PriorityPurchaseProps) {
     try {
       setLoading(true)
-
-      const payment = await purchasePriority({
-        dealerId,
-        vehicleId,
-        days,
-      })
-
+      const payment = await purchasePriority({dealerId,vehicleId,days,})
       const form = document.createElement('form')
-
       form.method = 'POST'
       form.action = payment.url
-
       Object.entries(payment.form).forEach(([key, value]) => {
         const input = document.createElement('input')
-
         input.type = 'hidden'
         input.name = key
         input.value = String(value)
-
         form.appendChild(input)
       })
-
       document.body.appendChild(form)
-
       form.submit()
     } catch (error) {
       console.error(error)

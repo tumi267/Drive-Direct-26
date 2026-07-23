@@ -39,7 +39,7 @@ function TicketDetails({ticket}:Props) {
     <TicketContactBtn
       clientmail=''
       ticketId={ticket.id}
-      createdById={ticket.claimedBy.id}
+      createdById={ticket.claimedBy}
       />
       <br/>
     <TicketHistory
@@ -47,7 +47,7 @@ function TicketDetails({ticket}:Props) {
     />
     <TicketTransferButton
     ticketId={ticket.id}
-    createdById={ticket.claimedBy.id}
+    createdById={ticket.claimedBy}
     currentDepartment={ticket.status}
     />
       </span>

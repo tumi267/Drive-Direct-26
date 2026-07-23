@@ -7,12 +7,7 @@ interface CreatePriorityRequest {
   days: number;
 }
 
-export async function createPriority({
-  dealerId,
-  vehicleId,
-  paymentReference,
-  days,
-}: CreatePriorityRequest) {
+export async function createPriority({dealerId,vehicleId,paymentReference,days,}: CreatePriorityRequest) {
   if (days <= 0) {
     throw new Error("Priority days must be greater than zero.");
   }
@@ -46,7 +41,7 @@ export async function createPriority({
   });
 
   if (existing) {
-    throw new Error("Payment has already been processed.");
+    return existing;
   }
 
   const startsAt = new Date();
@@ -55,19 +50,14 @@ export async function createPriority({
    * If the vehicle is already priority
    * extend from the current expiry.
    */
-  const baseDate =
-    vehicle.isPriority &&
-    vehicle.priorityUntil &&
-    vehicle.priorityUntil > startsAt
-      ? new Date(vehicle.priorityUntil)
-      : startsAt;
+  const baseDate =vehicle.isPriority &&vehicle.priorityUntil &&vehicle.priorityUntil > startsAt? new Date(vehicle.priorityUntil): startsAt;
 
   const expiresAt = new Date(baseDate);
 
   expiresAt.setDate(expiresAt.getDate() + days);
 
-  return await prisma.$transaction(async (tx) => {
-    const priority = await tx.priority.create({
+  const [priority] = await prisma.$transaction([
+    prisma.priority.create({
       data: {
         dealerId,
         vehicleId,
@@ -76,9 +66,9 @@ export async function createPriority({
         startsAt: baseDate,
         expiresAt,
       },
-    });
-
-    await tx.vehicle.update({
+    }),
+  
+    prisma.vehicle.update({
       where: {
         id: vehicleId,
       },
@@ -86,8 +76,8 @@ export async function createPriority({
         isPriority: true,
         priorityUntil: expiresAt,
       },
-    });
-
-    return priority;
-  });
-}
+    }),
+  ])
+  
+  return priority
+  }
