@@ -3,11 +3,12 @@
 import useDealerVehicles from '@/app/hooks/useDealerVehicles'
 import VehicleCard from '../../gobal/VehicleCard/VehicleCard'
 import Link from 'next/link'
+import usePriority from '@/app/hooks/usePriority'
 
 
 function DealerListings() {
   const {vehicles,loading,error,} = useDealerVehicles()
-
+  const {list}=usePriority()
   if (loading) {
     return <p>Loading vehicles...</p>
   }
@@ -34,6 +35,7 @@ function DealerListings() {
         <Link key={vehicle.id} href={`/dealer/listings/${vehicle.id}`}>
         <VehicleCard
           vehicle={vehicle}
+          prioritylist={list}
         />
         </Link>
       ))}
