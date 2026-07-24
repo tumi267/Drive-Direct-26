@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { BannerLinkType, BannerPlacement } from '@prisma/client'
 import { CampaignFormData } from '../types/bannerform'
 import { createBanner } from '../services/dealer/Createbanner'
-
+import useCampaignPayment from './useCampaignPayment'
 function useCampaignbanner() {
   const initialState: CampaignFormData = {
     title: '',
@@ -19,7 +19,7 @@ function useCampaignbanner() {
 
   const [formdata, setFormData] =
     useState<CampaignFormData>(initialState)
-
+const {startPriorityPurchase}=useCampaignPayment()
   const updateField = <
     K extends keyof CampaignFormData
   >(
@@ -48,7 +48,11 @@ function useCampaignbanner() {
     e.preventDefault()
 
     const res=await createBanner(formdata)
-    console.log(formdata.image)
+    if(res){
+      //create image cloudinary
+      //update db
+      startPriorityPurchase({campaignid:res.id,days:7})
+    }
   }
 
   const resetForm = () => {

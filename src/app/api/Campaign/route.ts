@@ -1,4 +1,5 @@
 import { createBannerService } from "@/app/libs/crud/banner/banner.create";
+import { purchaseCampaign } from "@/app/services/banner/banner.payment";
 import { NextResponse } from "next/server";
 
 export async function POST(req:Request){
@@ -15,7 +16,8 @@ export async function POST(req:Request){
             endsAt: new Date(body.endDate),
           };
        const res=await createBannerService(payload)
-       console.log(res)
+       
+    //    purchaseCampaign({campaignid:res.id,days:7})
         return NextResponse.json(res)
 
     } catch (error) {
